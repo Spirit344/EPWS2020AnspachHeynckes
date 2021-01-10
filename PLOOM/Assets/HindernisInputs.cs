@@ -8,6 +8,7 @@ public class HindernisInputs : MonoBehaviour
     private GameObject floor;
     private Vector3 scaleChange;
     private bool _mouseState;
+    public Material floormat;
     public Camera kamera;
     public GameObject target;
     public Vector3 screenSpace;
@@ -158,6 +159,7 @@ public class HindernisInputs : MonoBehaviour
     {
         floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
         floor.transform.position = new Vector3((fbreite / 2), 0, (flaenge / 2));
+        floor.GetComponent<Renderer>().material = floormat;
         scaleChange = new Vector3(fbreite, 0.2f, flaenge);
         floor.transform.localScale = scaleChange;
         floor.GetComponent<BoxCollider>().enabled = false;

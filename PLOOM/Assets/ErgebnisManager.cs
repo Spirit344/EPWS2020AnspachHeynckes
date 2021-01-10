@@ -13,6 +13,8 @@ public class ErgebnisManager : MonoBehaviour
     private Vector3 scaleChange;
     private GameObject cube, tisch, stuhl;
     private Vector3 oscaleChange;
+
+    public Material floormat, objektmat;
     void Start()
     {
         fbreite = GlobalControl.Instance.raumbreite;
@@ -54,6 +56,7 @@ public class ErgebnisManager : MonoBehaviour
         floor.transform.position = new Vector3((fbreite / 2), 0, (flaenge / 2));
         scaleChange = new Vector3(fbreite, 0.2f, flaenge);
         floor.transform.localScale = scaleChange;
+        floor.GetComponent<Renderer>().material = floormat;
     }
     public float SetObjektFlaeche()
     {
@@ -98,6 +101,7 @@ public class ErgebnisManager : MonoBehaviour
                 cube.transform.localScale = new Vector3(obreite, 1, olaenge);
                 cube.AddComponent<Rigidbody>();
                 cube.AddComponent<Kollision>();
+                cube.GetComponent<Renderer>().material = objektmat;
 
                 x = x + abstandx + obreite;
                 anzahlx++;
@@ -157,6 +161,8 @@ public class ErgebnisManager : MonoBehaviour
                 stuhl.AddComponent<Kollision>();
                 tisch.AddComponent<Rigidbody>();
                 tisch.AddComponent<Kollision>();
+                stuhl.GetComponent<Renderer>().material = objektmat;
+                tisch.GetComponent<Renderer>().material = objektmat;
                 stuhl.transform.SetParent(tisch.transform);
 
                 x = x + abstandx + grpbreite;

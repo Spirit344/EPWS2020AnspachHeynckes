@@ -9,6 +9,8 @@ public class ButtonManager : MonoBehaviour
     private GameObject hindernis;
     private Vector3 scaleChange;
     private float fbreite, flaenge;
+
+    public Material hindernismat;
     public void ButtonMoveScene(string menue)
     {
         SceneManager.LoadScene(menue);
@@ -24,8 +26,7 @@ public class ButtonManager : MonoBehaviour
         hindernis.transform.localScale = scaleChange;
         hindernis.GetComponent<BoxCollider>().enabled = true;
         hindernis.AddComponent<HindernisInputs>();
-        var cubeRenderer = hindernis.GetComponent<Renderer>();
-        cubeRenderer.material.SetColor("_Color", Color.red);
+        hindernis.GetComponent<Renderer>().material = hindernismat;
     }
 
     public void ExitGame()
