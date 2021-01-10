@@ -27,4 +27,9 @@ public class ButtonManager : MonoBehaviour
         var cubeRenderer = hindernis.GetComponent<Renderer>();
         cubeRenderer.material.SetColor("_Color", Color.red);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
