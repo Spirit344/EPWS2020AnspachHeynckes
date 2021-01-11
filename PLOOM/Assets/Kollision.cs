@@ -12,6 +12,7 @@ public class Kollision : MonoBehaviour
             if (gameObject.transform.parent != null)
             {
                 Destroy(gameObject.transform.parent.gameObject);
+                GlobalControl.Instance.objektanzahl = GlobalControl.Instance.objektanzahl + 1;
             }
             Destroy(gameObject);
             GlobalControl.Instance.objektanzahl = GlobalControl.Instance.objektanzahl - 1;
