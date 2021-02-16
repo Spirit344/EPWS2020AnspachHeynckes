@@ -153,6 +153,8 @@ public class ErgebnisManager : MonoBehaviour
                 float centerx = x + abstandx + (grpbreite / 2);
                 tisch = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 stuhl = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                tisch.tag = "Objekt";
+                stuhl.tag = "Objekt";
                 tisch.transform.position = new Vector3(centerx, 0.6f, (centery + grplaenge / 4));
                 tisch.transform.localScale = new Vector3(obreite, 1, olaenge);
                 stuhl.transform.position = new Vector3(centerx, 0.3f, (centery - grplaenge / 4));

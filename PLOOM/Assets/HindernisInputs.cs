@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class HindernisInputs : MonoBehaviour
 {
@@ -177,6 +178,7 @@ public class HindernisInputs : MonoBehaviour
             txt.text = ("Hindernis W: " + myW + "\nHindernis L: " + myL);
         }
     }
+
 
     public void DrawFloor()
     {

@@ -9,6 +9,7 @@ public class ButtonManager : MonoBehaviour
     private GameObject hindernis;
     private Vector3 scaleChange;
     private float fbreite, flaenge;
+    public GameObject[] hindernisse;
 
     public Material hindernismat;
     public void ButtonMoveScene(string menue)
@@ -29,8 +30,36 @@ public class ButtonManager : MonoBehaviour
         hindernis.GetComponent<Renderer>().material = hindernismat;
     }
 
+    public void DeleteHindernis()
+    {
+        if (hindernis != null)
+        {
+            Destroy(hindernis);
+        }
+    }
+
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    /*public void NeuBerechnen()
+    {
+        hindernisse = GameObject.FindGameObjectsWithTag("Hindernis");
+
+        foreach (GameObject hindernis in hindernisse)
+        {
+            Destroy(gameObject);
+        }
+    }*/
+    public void NeuBerechnen()
+    {
+
+        var go = new GameObject("Sacrificial Lamb");
+        DontDestroyOnLoad(go);
+
+        foreach (var root in go.scene.GetRootGameObjects())
+            Destroy(root);
+
     }
 }
