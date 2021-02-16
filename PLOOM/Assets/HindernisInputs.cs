@@ -15,6 +15,7 @@ public class HindernisInputs : MonoBehaviour
     public Vector3 startPos;
     public float screenSpacex, screenSpacey, screenSpacez;
     public Vector3 offset;
+    public Text textXY, textWL;
     public float fbreite, flaenge, fflaeche;
     public float sizingFactor = 0.02f;
     private float startSizeX, startSizeZ;
@@ -40,6 +41,8 @@ public class HindernisInputs : MonoBehaviour
         {
             Transformieren();
             Skalieren();
+            SetTextAxis(textXY);
+            SetTextSize(textWL);
         }
 
     }
@@ -152,6 +155,26 @@ public class HindernisInputs : MonoBehaviour
             size.z = startSizeZ + (Input.mousePosition.y - startZ) * sizingFactor;
             target.transform.localScale = size;
             SaveHindernis(target);
+        }
+    }
+
+    public void SetTextAxis(Text txt)
+    {
+        if (target != null)
+        {
+            double myX = System.Math.Round(target.transform.position.x, 2);
+            double myZ = System.Math.Round(target.transform.position.z, 2);
+            txt.text = ("Hindernis X: " + myX + "\nHindernis Y: " + myZ);
+        }
+    }
+
+    public void SetTextSize(Text txt)
+    {
+        if (target != null)
+        {
+            double myW = System.Math.Round(target.transform.localScale.x, 2);
+            double myL = System.Math.Round(target.transform.localScale.z, 2);
+            txt.text = ("Hindernis W: " + myW + "\nHindernis L: " + myL);
         }
     }
 
