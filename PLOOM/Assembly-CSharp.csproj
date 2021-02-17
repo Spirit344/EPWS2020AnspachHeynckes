@@ -64,6 +64,8 @@
      <Compile Include="Assets\HindernisInputs.cs" />
      <Compile Include="Assets\Kollision.cs" />
      <Compile Include="Assets\ObjectInputs.cs" />
+     <Compile Include="Assets\RaycastCheck.cs" />
+     <Compile Include="Assets\Start.cs" />
      <Compile Include="Assets\SwitchCamera.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

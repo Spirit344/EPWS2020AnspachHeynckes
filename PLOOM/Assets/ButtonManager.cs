@@ -6,12 +6,15 @@ using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
 {
-    private GameObject hindernis;
+    private GameObject hindernis, sprecher;
     private Vector3 scaleChange;
     private float fbreite, flaenge;
     public GameObject[] hindernisse;
+    public GameObject target;
+    public Material hindernismat, sprechermat;
+    public InputField hheight, sheight;
+    public float heighth, heights;
 
-    public Material hindernismat;
     public void ButtonMoveScene(string menue)
     {
         SceneManager.LoadScene(menue);
@@ -22,20 +25,48 @@ public class ButtonManager : MonoBehaviour
         flaenge = GlobalControl.Instance.raumlaenge;
 
         hindernis = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        hindernis.transform.position = new Vector3((-fbreite / 2), 0.11f, (flaenge / 2));
-        scaleChange = new Vector3(2, 0.02f, 2);
+        if (hheight.text != "")
+        {
+            heighth = float.Parse(hheight.text) / 100;
+            hindernis.transform.position = new Vector3((-fbreite / 2), ((heighth / 2) + 0.11f), (flaenge / 2));
+            scaleChange = new Vector3(2, heighth, 2);
+            hindernis.transform.localScale = scaleChange;
+        }
+        else
+        {
+            hindernis.transform.position = new Vector3((-fbreite / 2), 0.11f, (flaenge / 2));
+            scaleChange = new Vector3(2, 0.11f, 2);
+        }
         hindernis.transform.localScale = scaleChange;
         hindernis.GetComponent<BoxCollider>().enabled = true;
         hindernis.AddComponent<HindernisInputs>();
         hindernis.GetComponent<Renderer>().material = hindernismat;
+        hindernis.name = "Hindernis";
+        hindernis.tag = "Hindernis";
     }
-
-    public void DeleteHindernis()
+    public void AddSprecher()
     {
-        if (hindernis != null)
+        fbreite = GlobalControl.Instance.raumbreite;
+        flaenge = GlobalControl.Instance.raumlaenge;
+
+        sprecher = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        if (sheight.text != "")
         {
-            Destroy(hindernis);
+            heights = float.Parse(sheight.text) / 100;
+            sprecher.transform.position = new Vector3((-fbreite / 2), ((heights / 2) + 0.11f), (flaenge / 2));
+            scaleChange = new Vector3(1.5f, heights, 1.5f);
+            sprecher.transform.localScale = scaleChange;
         }
+        else
+        {
+            sprecher.transform.position = new Vector3((-fbreite / 2), 0.11f, (flaenge / 2));
+            scaleChange = new Vector3(1.5f, 0.11f, 1.5f);
+        }
+        sprecher.GetComponent<BoxCollider>().enabled = true;
+        sprecher.AddComponent<HindernisInputs>();
+        sprecher.GetComponent<Renderer>().material = sprechermat;
+        sprecher.name = "SprecherObjekt";
+        sprecher.tag = "Sprecher";
     }
 
     public void ExitGame()
@@ -43,15 +74,11 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-    /*public void NeuBerechnen()
+    public void HindernisEntfernen()
     {
-        hindernisse = GameObject.FindGameObjectsWithTag("Hindernis");
-
-        foreach (GameObject hindernis in hindernisse)
-        {
-            Destroy(gameObject);
-        }
-    }*/
+        target = GlobalControl.Instance.target;
+        Destroy(target);
+    }
     public void NeuBerechnen()
     {
 

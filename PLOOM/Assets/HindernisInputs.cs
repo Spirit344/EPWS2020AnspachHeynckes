@@ -35,8 +35,8 @@ public class HindernisInputs : MonoBehaviour
     {
         if (Camera.main.name == "3DCam")
         {
-            Transformieren3D();
-            Skalieren3D();
+            //Transformieren3D();
+            //Skalieren3D();
         }
         else
         {
@@ -65,6 +65,7 @@ public class HindernisInputs : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             _mouseState = false;
+            GlobalControl.Instance.target = target;
         }
         if (_mouseState)
         {
@@ -79,8 +80,86 @@ public class HindernisInputs : MonoBehaviour
             SaveHindernis(target);
         }
     }
+    public void Skalieren()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (target != null)
+            {
+                float positionZ = 10.0f;
+                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, positionZ);
+                startX = position.x;
+                startZ = position.z;
+                position = Camera.main.ScreenToWorldPoint(position);
+                startSizeX = target.transform.localScale.z;
+                startSizeZ = target.transform.localScale.x;
+            }
+        }
 
-    public void Transformieren3D()
+        if (Input.GetMouseButton(1))
+        {
+            Vector3 size = target.transform.localScale;
+            size.x = startSizeX + (Input.mousePosition.x - startX) * sizingFactor;
+            size.z = startSizeZ + (Input.mousePosition.y - startZ) * sizingFactor;
+            target.transform.localScale = size;
+            SaveHindernis(target);
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            GlobalControl.Instance.target = target;
+        }
+    }
+
+    public void SetTextAxis(Text txt)
+    {
+        if (target != null)
+        {
+            double myX = System.Math.Round(target.transform.position.x, 2);
+            double myZ = System.Math.Round(target.transform.position.z, 2);
+            txt.text = ("Hindernis X: " + myX + "\nHindernis Y: " + myZ);
+        }
+    }
+
+    public void SetTextSize(Text txt)
+    {
+        if (target != null)
+        {
+            double myW = System.Math.Round(target.transform.localScale.x, 2);
+            double myL = System.Math.Round(target.transform.localScale.z, 2);
+            txt.text = ("Hindernis W: " + myW + "\nHindernis L: " + myL);
+        }
+    }
+
+
+    public void DrawFloor()
+    {
+        floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        floor.transform.position = new Vector3((fbreite / 2), 0, (flaenge / 2));
+        floor.GetComponent<Renderer>().material = floormat;
+        scaleChange = new Vector3(fbreite, 0.2f, flaenge);
+        floor.transform.localScale = scaleChange;
+        floor.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    GameObject GetClickedObject(out RaycastHit hit)
+    {
+        GameObject target = null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
+        {
+            target = hit.collider.gameObject;
+        }
+        return target;
+    }
+
+    public void SaveHindernis(GameObject target)
+    {
+        DontDestroyOnLoad(target);
+        var test = target.GetComponent<HindernisInputs>();
+        Destroy(test);
+    }
+
+    /*public void Transformieren3D()
     {
         // Debug.Log(_mouseState);
         if (Input.GetMouseButtonDown(0))
@@ -131,83 +210,6 @@ public class HindernisInputs : MonoBehaviour
             target.transform.localScale = size;
             SaveHindernis(target);
         }
-    }
-
-    public void Skalieren()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (target != null)
-            {
-                float positionZ = 10.0f;
-                Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, positionZ);
-                startX = position.x;
-                startZ = position.z;
-                position = Camera.main.ScreenToWorldPoint(position);
-                startSizeX = target.transform.localScale.z;
-                startSizeZ = target.transform.localScale.x;
-            }
-        }
-
-        if (Input.GetMouseButton(1))
-        {
-            Vector3 size = target.transform.localScale;
-            size.x = startSizeX + (Input.mousePosition.x - startX) * sizingFactor;
-            size.z = startSizeZ + (Input.mousePosition.y - startZ) * sizingFactor;
-            target.transform.localScale = size;
-            SaveHindernis(target);
-        }
-    }
-
-    public void SetTextAxis(Text txt)
-    {
-        if (target != null)
-        {
-            double myX = System.Math.Round(target.transform.position.x, 2);
-            double myZ = System.Math.Round(target.transform.position.z, 2);
-            txt.text = ("Hindernis X: " + myX + "\nHindernis Y: " + myZ);
-        }
-    }
-
-    public void SetTextSize(Text txt)
-    {
-        if (target != null)
-        {
-            double myW = System.Math.Round(target.transform.localScale.x, 2);
-            double myL = System.Math.Round(target.transform.localScale.z, 2);
-            txt.text = ("Hindernis W: " + myW + "\nHindernis L: " + myL);
-        }
-    }
-
-
-    public void DrawFloor()
-    {
-        floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        floor.transform.position = new Vector3((fbreite / 2), 0, (flaenge / 2));
-        floor.GetComponent<Renderer>().material = floormat;
-        scaleChange = new Vector3(fbreite, 0.2f, flaenge);
-        floor.transform.localScale = scaleChange;
-        floor.GetComponent<BoxCollider>().enabled = false;
-    }
-
-    GameObject GetClickedObject(out RaycastHit hit)
-    {
-        GameObject target = null;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction * 10, out hit))
-        {
-            target = hit.collider.gameObject;
-        }
-
-        return target;
-    }
-
-    public void SaveHindernis(GameObject target)
-    {
-        target.tag = "Hindernis";
-        DontDestroyOnLoad(target);
-        var test = target.GetComponent<HindernisInputs>();
-        Destroy(test);
-    }
+    } */
 
 }

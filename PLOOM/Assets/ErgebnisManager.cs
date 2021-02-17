@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class ErgebnisManager : MonoBehaviour
 {
     public float fbreite, flaenge, fumfang, fflaeche;
-    public float obreite, olaenge, oumfang, oabstand, oflaeche, sbreite, slaenge, sflaeche, anzahl;
-    public float anzahlx = 0;
-    public Text txtanzahl;
+    public float obreite, olaenge, ohoehe, oumfang, oabstand, oflaeche, sbreite, slaenge, shoehe, sflaeche, anzahl;
+    public int anzahlx = 0;
+    public Text txtanzahl, txtabstand;
     private GameObject floor;
     private Vector3 scaleChange;
     private GameObject cube, tisch, stuhl;
     private Vector3 oscaleChange;
-
     public Material floormat, objektmat;
+
     void Start()
     {
         fbreite = GlobalControl.Instance.raumbreite;
@@ -23,11 +23,13 @@ public class ErgebnisManager : MonoBehaviour
         fflaeche = GlobalControl.Instance.raumflaeche;
         obreite = GlobalControl.Instance.objektbreite;
         olaenge = GlobalControl.Instance.objektlaenge;
+        ohoehe = GlobalControl.Instance.objekthoehe;
         oumfang = GlobalControl.Instance.objektumfang;
         oabstand = GlobalControl.Instance.objektabstand;
         oflaeche = GlobalControl.Instance.objektflaeche;
         sbreite = GlobalControl.Instance.stuhlbreite;
         slaenge = GlobalControl.Instance.stuhllaenge;
+        shoehe = GlobalControl.Instance.stuhlhoehe;
         sflaeche = GlobalControl.Instance.stuhlflaeche;
 
         FloorDraw();
@@ -63,15 +65,6 @@ public class ErgebnisManager : MonoBehaviour
         oflaeche = obreite * olaenge;
         return oflaeche;
     }
-    /*public void CubeDraw()
-    {
-        cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        cube.transform.position = new Vector3(0, 0.6f, 0);
-        oscaleChange = new Vector3(obreite, 1, olaenge);
-        cube.transform.localScale = oscaleChange;
-        Renderer rend = cube.GetComponent<Renderer>();
-        rend.material = Resources.Load<Material>("red");
-    }*/
 
     public float AbstandBerechnen(float raumlb, float objektlb, float mindestabstand)
     {
@@ -97,11 +90,13 @@ public class ErgebnisManager : MonoBehaviour
                 float centerx = x + abstandx + (obreite / 2);
                 cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cube.tag = "Objekt";
-                cube.transform.position = new Vector3(centerx, 0.6f, centery);
-                cube.transform.localScale = new Vector3(obreite, 1, olaenge);
+                cube.transform.position = new Vector3(centerx, (ohoehe / 2 + 0.1f), centery);
+                cube.transform.localScale = new Vector3(obreite, ohoehe, olaenge);
                 cube.AddComponent<Rigidbody>();
                 cube.AddComponent<Kollision>();
+                //cube.AddComponent<RaycastCheck>();
                 cube.GetComponent<Renderer>().material = objektmat;
+                cube.name = "Tisch";
 
                 x = x + abstandx + obreite;
                 anzahlx++;
@@ -109,7 +104,6 @@ public class ErgebnisManager : MonoBehaviour
             x = 0;
             y = y + abstandy + olaenge;
         }
-        GlobalControl.Instance.objektanzahl = anzahlx;
     }
 
     public float GrpBreite(float objektb, float stuhlb)
@@ -155,16 +149,18 @@ public class ErgebnisManager : MonoBehaviour
                 stuhl = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 tisch.tag = "Objekt";
                 stuhl.tag = "Objekt";
-                tisch.transform.position = new Vector3(centerx, 0.6f, (centery + grplaenge / 4));
-                tisch.transform.localScale = new Vector3(obreite, 1, olaenge);
-                stuhl.transform.position = new Vector3(centerx, 0.3f, (centery - grplaenge / 4));
-                stuhl.transform.localScale = new Vector3(sbreite, 0.5f, slaenge);
+                tisch.transform.position = new Vector3(centerx, ((ohoehe / 2) + 0.1f), (centery + grplaenge / 4));
+                tisch.transform.localScale = new Vector3(obreite, ohoehe, olaenge);
+                stuhl.transform.position = new Vector3(centerx, ((shoehe / 2) + 0.1f), (centery - grplaenge / 4));
+                stuhl.transform.localScale = new Vector3(sbreite, shoehe, slaenge);
                 stuhl.AddComponent<Rigidbody>();
                 stuhl.AddComponent<Kollision>();
                 tisch.AddComponent<Rigidbody>();
                 tisch.AddComponent<Kollision>();
                 stuhl.GetComponent<Renderer>().material = objektmat;
                 tisch.GetComponent<Renderer>().material = objektmat;
+                tisch.name = "Tisch";
+                stuhl.name = "Stuhl";
                 stuhl.transform.SetParent(tisch.transform);
 
                 x = x + abstandx + grpbreite;
@@ -173,11 +169,13 @@ public class ErgebnisManager : MonoBehaviour
             x = 0;
             y = y + abstandy + grplaenge;
         }
-        GlobalControl.Instance.objektanzahl = anzahlx;
     }
     public void SetTextAnzahl()
     {
-        txtanzahl.text = "Objektgruppen: " + GlobalControl.Instance.objektanzahl;
+        txtanzahl.text = "Objektgruppen: " + (GlobalControl.Instance.objektanzahl);
     }
-
+    public void SetTextAbstand()
+    {
+        txtabstand.text = "Optimaler Abstand\nzwischen\nObjektgruppen: ";
+    }
 }
