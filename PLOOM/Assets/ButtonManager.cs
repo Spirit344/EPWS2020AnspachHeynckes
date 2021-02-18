@@ -14,6 +14,7 @@ public class ButtonManager : MonoBehaviour
     public Material hindernismat, sprechermat;
     public InputField hheight, sheight;
     public float heighth, heights;
+    public Text measure1, measure2;
     public void ButtonMoveScene(string menue)
     {
         SceneManager.LoadScene(menue);
@@ -27,13 +28,13 @@ public class ButtonManager : MonoBehaviour
         if (hheight.text != "")
         {
             heighth = float.Parse(hheight.text) / 100;
-            hindernis.transform.position = new Vector3((-fbreite / 2), ((heighth / 2) + 0.11f), (flaenge / 2));
+            hindernis.transform.position = new Vector3((fbreite / 2), ((heighth / 2) + 0.11f), (flaenge / 2));
             scaleChange = new Vector3(2, heighth, 2);
             hindernis.transform.localScale = scaleChange;
         }
         else
         {
-            hindernis.transform.position = new Vector3((-fbreite / 2), 0.11f, (flaenge / 2));
+            hindernis.transform.position = new Vector3((fbreite / 2), 0.11f, (flaenge / 2));
             scaleChange = new Vector3(2, 0.11f, 2);
         }
         hindernis.transform.localScale = scaleChange;
@@ -52,13 +53,13 @@ public class ButtonManager : MonoBehaviour
         if (sheight.text != "")
         {
             heights = float.Parse(sheight.text) / 100;
-            sprecher.transform.position = new Vector3((-fbreite / 2), ((heights / 2) + 0.11f), (flaenge / 2));
+            sprecher.transform.position = new Vector3((fbreite / 2), ((heights / 2) + 0.11f), (flaenge / 2));
             scaleChange = new Vector3(1.5f, heights, 1.5f);
             sprecher.transform.localScale = scaleChange;
         }
         else
         {
-            sprecher.transform.position = new Vector3((-fbreite / 2), 0.11f, (flaenge / 2));
+            sprecher.transform.position = new Vector3((fbreite / 2), 0.11f, (flaenge / 2));
             scaleChange = new Vector3(1.5f, 0.11f, 1.5f);
         }
         sprecher.GetComponent<BoxCollider>().enabled = true;
@@ -79,6 +80,21 @@ public class ButtonManager : MonoBehaviour
             GlobalControl.Instance.toggle = false;
         }
     }
+
+    public void ToggleMeasurement()
+    {
+        if (measure1.enabled == false)
+        {
+            measure1.gameObject.SetActive(!measure1.gameObject.activeSelf);
+            measure2.gameObject.SetActive(!measure2.gameObject.activeSelf);
+        }
+        else
+        {
+            measure1.gameObject.SetActive(!measure1.gameObject.activeSelf);
+            measure2.gameObject.SetActive(!measure2.gameObject.activeSelf);
+        }
+    }
+
     public void ExitGame()
     {
         Application.Quit();

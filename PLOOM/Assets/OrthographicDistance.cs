@@ -13,9 +13,9 @@ public class OrthographicDistance : MonoBehaviour
         fbreite = GlobalControl.Instance.raumbreite;
         flaenge = GlobalControl.Instance.raumlaenge;
         camera = GameObject.Find("2DCamera").GetComponent<Camera>();
+        //Debug.Log("Camera Vector: " + camera.gameObject.transform.position.ToString());
         DistanzAnpassen();
     }
-
     // Update is called once per frame
     void Update()
     {

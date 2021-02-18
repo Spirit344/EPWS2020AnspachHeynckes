@@ -46,6 +46,7 @@ public class ErgebnisManager : MonoBehaviour
     void Update()
     {
         SetTextAnzahl();
+        SetTextAbstand();
     }
     public float SetFloorFlaeche()
     {
@@ -172,10 +173,10 @@ public class ErgebnisManager : MonoBehaviour
     }
     public void SetTextAnzahl()
     {
-        txtanzahl.text = "Objektgruppen: " + (GlobalControl.Instance.objektanzahl);
+        txtanzahl.text = "Objektgruppen: " + GlobalControl.Instance.objektanzahl;
     }
     public void SetTextAbstand()
     {
-        txtabstand.text = "Optimaler Abstand\nzwischen\nObjektgruppen: ";
+        txtabstand.text = "Optimaler Abstand zw.\nObjektgruppen: " + GlobalControl.Instance.objektabstand;
     }
 }

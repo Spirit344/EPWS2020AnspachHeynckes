@@ -19,39 +19,44 @@ public class RaycastCheck : MonoBehaviour
         GameObject[] objektgruppearray = GameObject.FindGameObjectsWithTag("Objekt");
         GameObject[] sprecherarray = GameObject.FindGameObjectsWithTag("Sprecher");
 
-        foreach (GameObject objektgruppe in objektgruppearray)
+        if (sprecherarray.Length != 0)
         {
-            bool seespeaker = false;
 
-            foreach (GameObject sprecher in sprecherarray)
+            foreach (GameObject objektgruppe in objektgruppearray)
             {
-                RaycastHit hit;
+                bool seespeaker = false;
 
-                if (Physics.Linecast(sprecher.transform.position, objektgruppe.transform.position, out hit))
+                foreach (GameObject sprecher in sprecherarray)
                 {
-                    Debug.DrawLine(sprecher.transform.position, objektgruppe.transform.position, Color.blue, 1000);
-                    //Debug.Log("hit: " + hit.collider.name);
+                    RaycastHit hit;
 
-                    if (hit.collider.tag != "Hindernis")
+                    if (Physics.Linecast(sprecher.transform.position, objektgruppe.transform.position, out hit))
                     {
-                        seespeaker = true;
+                        Debug.DrawLine(sprecher.transform.position, objektgruppe.transform.position, Color.blue, 1000);
+                        //Debug.Log("hit: " + hit.collider.name);
+
+                        if (hit.collider.tag != "Hindernis")
+                        {
+                            seespeaker = true;
+                        }
+                    }
+
+                }
+                if (!seespeaker)
+                {
+                    if (objektgruppe.transform.parent != null)
+                    {
+                        Destroy(objektgruppe.transform.parent.gameObject);
+                    }
+                    else
+                    {
+                        Destroy(objektgruppe);
                     }
                 }
 
             }
-            if (!seespeaker)
-            {
-                if (objektgruppe.transform.parent != null)
-                {
-                    Destroy(objektgruppe.transform.parent.gameObject);
-                }
-                else
-                {
-                    Destroy(objektgruppe);
-                }
-            }
-
         }
+
     }
 
     public void AnzahlObjekte()
