@@ -51,7 +51,7 @@ public class HindernisInputs : MonoBehaviour
     public void Transformieren()
     {
         // Debug.Log(_mouseState);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GlobalControl.Instance.toggle == false)
         {
             RaycastHit hitInfo;
             target = GetClickedObject(out hitInfo);
@@ -82,7 +82,7 @@ public class HindernisInputs : MonoBehaviour
     }
     public void Skalieren()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && GlobalControl.Instance.toggle == false)
         {
             if (target != null)
             {
@@ -96,7 +96,7 @@ public class HindernisInputs : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && GlobalControl.Instance.toggle == false)
         {
             Vector3 size = target.transform.localScale;
             size.x = startSizeX + (Input.mousePosition.x - startX) * sizingFactor;
@@ -129,7 +129,6 @@ public class HindernisInputs : MonoBehaviour
             txt.text = ("Hindernis W: " + myW + "\nHindernis L: " + myL);
         }
     }
-
 
     public void DrawFloor()
     {

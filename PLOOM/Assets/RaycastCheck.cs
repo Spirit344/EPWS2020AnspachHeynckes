@@ -13,30 +13,7 @@ public class RaycastCheck : MonoBehaviour
     {
         AnzahlObjekte();
     }
-    /*public void Update()
-    {
-        CheckRaycastHit();
-    }*/
 
-    /*public void CheckRaycast()
-    {
-        GameObject[] sprecherarray = GameObject.FindGameObjectsWithTag("Sprecher");
-        RaycastHit hit;
-        foreach (GameObject sprecher in sprecherarray)
-        {
-            if (Physics.Linecast(sprecher.transform.position, gameObject.transform.position, out hit))
-            {
-                if (gameObject.transform.parent != null)
-                {
-                    Destroy(gameObject.transform.parent.gameObject);
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
-            }
-        }
-    }*/
     public void CheckRaycastRichtig()
     {
         GameObject[] objektgruppearray = GameObject.FindGameObjectsWithTag("Objekt");
@@ -91,6 +68,26 @@ public class RaycastCheck : MonoBehaviour
         GlobalControl.Instance.objektanzahl = arrayanzahl;
 
     }
+
+    /*public void CheckRaycast()
+    {
+        GameObject[] sprecherarray = GameObject.FindGameObjectsWithTag("Sprecher");
+        RaycastHit hit;
+        foreach (GameObject sprecher in sprecherarray)
+        {
+            if (Physics.Linecast(sprecher.transform.position, gameObject.transform.position, out hit))
+            {
+                if (gameObject.transform.parent != null)
+                {
+                    Destroy(gameObject.transform.parent.gameObject);
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
+    }*/
 
     /*
     public void CheckRaycastHit()

@@ -8,6 +8,7 @@ public class GlobalControl : MonoBehaviour
     public int objektanzahl;
     public static GlobalControl Instance;
     public GameObject target;
+    public bool toggle = false;
 
     void Awake()
     {

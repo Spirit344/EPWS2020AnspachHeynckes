@@ -14,7 +14,6 @@ public class ButtonManager : MonoBehaviour
     public Material hindernismat, sprechermat;
     public InputField hheight, sheight;
     public float heighth, heights;
-
     public void ButtonMoveScene(string menue)
     {
         SceneManager.LoadScene(menue);
@@ -69,6 +68,17 @@ public class ButtonManager : MonoBehaviour
         sprecher.tag = "Sprecher";
     }
 
+    public void ToggleMovement()
+    {
+        if (GlobalControl.Instance.toggle == false)
+        {
+            GlobalControl.Instance.toggle = true;
+        }
+        else
+        {
+            GlobalControl.Instance.toggle = false;
+        }
+    }
     public void ExitGame()
     {
         Application.Quit();
