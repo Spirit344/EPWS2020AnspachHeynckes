@@ -8,7 +8,7 @@ public class ErgebnisManager : MonoBehaviour
     public float fbreite, flaenge, fumfang, fflaeche;
     public float obreite, olaenge, ohoehe, oumfang, oabstand, oflaeche, sbreite, slaenge, shoehe, sflaeche, anzahl;
     public int anzahlx = 0;
-    public Text txtanzahl, txtabstand;
+    public Text txtanzahl, txtabstand, txtrbreite, txtrlaenge, txtrflaeche, txtobreite, txtolaenge, txtohoehe, txtoflaeche;
     private GameObject floor;
     private Vector3 scaleChange;
     private GameObject cube, tisch, stuhl;
@@ -45,8 +45,7 @@ public class ErgebnisManager : MonoBehaviour
     }
     void Update()
     {
-        SetTextAnzahl();
-        SetTextAbstand();
+        SetTextBoxen();
     }
     public float SetFloorFlaeche()
     {
@@ -171,12 +170,16 @@ public class ErgebnisManager : MonoBehaviour
             y = y + abstandy + grplaenge;
         }
     }
-    public void SetTextAnzahl()
+    public void SetTextBoxen()
     {
         txtanzahl.text = "Objektgruppen: " + GlobalControl.Instance.objektanzahl;
-    }
-    public void SetTextAbstand()
-    {
-        txtabstand.text = "Optimaler Abstand zw.\nObjektgruppen: " + GlobalControl.Instance.objektabstand;
+        txtabstand.text = "Optimaler Abstand zw.\nObjektgruppen(m): " + AbstandBerechnen(fbreite, GrpBreite(obreite, sbreite), oabstand).ToString("F2");
+        txtrbreite.text = "Raumbreite(m): " + GlobalControl.Instance.raumbreite.ToString("F2");
+        txtrlaenge.text = "Raumlänge(m): " + GlobalControl.Instance.raumlaenge.ToString("F2");
+        txtrflaeche.text = "Raumfläche(m^2): " + GlobalControl.Instance.raumflaeche;
+        txtobreite.text = "Objektbreite(m): " + GlobalControl.Instance.objektbreite.ToString("F2");
+        txtolaenge.text = "Objektlaenge(m): " + GlobalControl.Instance.objektlaenge.ToString("F2");
+        txtohoehe.text = "Objekthoehe(m): " + GlobalControl.Instance.objekthoehe.ToString("F2");
+        txtoflaeche.text = "Objektfläche(m): " + (GlobalControl.Instance.objektflaeche / 100).ToString("F2");
     }
 }

@@ -29,13 +29,9 @@ public class FloorInputs : MonoBehaviour
         {
             fflaeche = fbreite * flaenge;
             string menue = "Scene3Objekt";
-            ButtonMoveScene(menue);
+            SceneManager.LoadScene(menue);
             reminder.gameObject.SetActive(false);
         }
-    }
-    public void ButtonMoveScene(string menue)
-    {
-        SceneManager.LoadScene(menue);
     }
     public void SavePlayer()
     {

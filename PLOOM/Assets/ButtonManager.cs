@@ -14,7 +14,7 @@ public class ButtonManager : MonoBehaviour
     public Material hindernismat, sprechermat;
     public InputField hheight, sheight;
     public float heighth, heights;
-    public Text measure1, measure2;
+    public Text measure1;
     public void ButtonMoveScene(string menue)
     {
         SceneManager.LoadScene(menue);
@@ -83,16 +83,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ToggleMeasurement()
     {
-        if (measure1.enabled == false)
-        {
-            measure1.gameObject.SetActive(!measure1.gameObject.activeSelf);
-            measure2.gameObject.SetActive(!measure2.gameObject.activeSelf);
-        }
-        else
-        {
-            measure1.gameObject.SetActive(!measure1.gameObject.activeSelf);
-            measure2.gameObject.SetActive(!measure2.gameObject.activeSelf);
-        }
+        measure1.gameObject.SetActive(!measure1.gameObject.activeSelf);
     }
 
     public void ExitGame()
@@ -105,6 +96,7 @@ public class ButtonManager : MonoBehaviour
         target = GlobalControl.Instance.target;
         Destroy(target);
     }
+
     public void NeuBerechnen()
     {
 

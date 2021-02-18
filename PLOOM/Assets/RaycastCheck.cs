@@ -6,7 +6,7 @@ public class RaycastCheck : MonoBehaviour
 
     public void Start()
     {
-        Invoke("CheckRaycastRichtig", 0.1f);
+        Invoke("CheckRaycastRichtig", 0.3f);
         //CheckRaycastRichtig();
     }
     public void Update()
@@ -32,7 +32,7 @@ public class RaycastCheck : MonoBehaviour
 
                     if (Physics.Linecast(sprecher.transform.position, objektgruppe.transform.position, out hit))
                     {
-                        Debug.DrawLine(sprecher.transform.position, objektgruppe.transform.position, Color.blue, 1000);
+                        //Debug.DrawLine(sprecher.transform.position, objektgruppe.transform.position, Color.blue, 1000);
                         //Debug.Log("hit: " + hit.collider.name);
 
                         if (hit.collider.tag != "Hindernis")

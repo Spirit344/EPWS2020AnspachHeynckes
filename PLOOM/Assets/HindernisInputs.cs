@@ -22,6 +22,9 @@ public class HindernisInputs : MonoBehaviour
     private float startSizeX, startSizeZ;
     public float startX, startZ;
 
+    public float initialFingersDistance;
+    public Vector3 initialScale;
+
     void Start()
     {
         fbreite = GlobalControl.Instance.raumbreite;
@@ -41,6 +44,7 @@ public class HindernisInputs : MonoBehaviour
         else
         {
             Transformieren();
+            //PinchScale();
             Skalieren();
             SetTextAxis(textXY);
             SetTextSize(textWL);
@@ -79,6 +83,29 @@ public class HindernisInputs : MonoBehaviour
             target.transform.position = curPosition;
             SaveHindernis(target);
         }
+    }
+
+    public void PinchScale()
+    {
+
+        if (Input.touches.Length == 2)
+        {
+            Touch t1 = Input.touches[0];
+            Touch t2 = Input.touches[1];
+
+            if (t1.phase == TouchPhase.Began || t2.phase == TouchPhase.Began)
+            {
+                initialFingersDistance = Vector2.Distance(t1.position, t2.position);
+                initialScale = target.transform.localScale;
+            }
+            else if (t1.phase == TouchPhase.Moved || t2.phase == TouchPhase.Moved)
+            {
+                var currentFingersDistance = Vector2.Distance(t1.position, t2.position);
+                var scaleFactor = currentFingersDistance / initialFingersDistance;
+                target.transform.localScale = initialScale * scaleFactor;
+            }
+        }
+
     }
     public void Skalieren()
     {
