@@ -153,7 +153,7 @@ public class HindernisInputs : MonoBehaviour
         {
             double myW = System.Math.Round(target.transform.localScale.x, 2);
             double myL = System.Math.Round(target.transform.localScale.z, 2);
-            txt.text = ("Hindernis W: " + myW + "\nHindernis L: " + myL);
+            txt.text = (myW + " :W Hindernis\n" + myL + " :L Hindernis");
         }
     }
 
